@@ -23,6 +23,22 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private static final String[] PUBLIC_URLS = {"/demo/**",
+            "/login/**",
+            "/register/**",
+            "/refresh_token/**",
+            "/api/v1/auth/**",
+            "/v2/api-docs",
+            "/v3/api-docs",
+            "/v3/api-docs/**",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui/**",
+            "/webjars/**",
+            "/swagger-vi.html"};
+
     private final UserDetailsServiceImp userDetailsServiceImp;
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -43,7 +59,7 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
-                        req->req.requestMatchers("/demo/**","/login/**","/register/**", "/refresh_token/**")
+                        req->req.requestMatchers(PUBLIC_URLS)
                                 .permitAll()
                                 .requestMatchers("/admin_only/**").hasAuthority("ADMIN")
                                 .anyRequest()
