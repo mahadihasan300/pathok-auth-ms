@@ -141,4 +141,9 @@ public class AuthenticationService {
         return new ResponseEntity(HttpStatus.UNAUTHORIZED);
 
     }
+
+    public void validateToken(String token) {
+        jwtService.validateToken(token);
+    }
+
 }
